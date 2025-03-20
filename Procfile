@@ -1,0 +1,1 @@
+web gunicorn FishFarmMS.wsgi:application --log-file -
