@@ -1,1 +1,2 @@
-web: gunicorn backend/FishFarmMS.wsgi:application --log-file -
+release: python mange.py migrate
+web: gunicorn fishfarmms.wsgi -log-file -
