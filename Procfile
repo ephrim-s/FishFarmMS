@@ -1,1 +1,1 @@
-web: gunicorn fishfarmms.wsgi -log-file -
+web gunicorn fishfarmms.wsgi:application --log-file -
