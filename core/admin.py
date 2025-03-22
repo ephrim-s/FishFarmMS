@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser, ADMIN_ROLES, USER_ROLES
+from django.utils.translation import gettext_lazy as _
 
 class CustomUserAdmin(UserAdmin):
     model = CustomUser
@@ -42,3 +43,6 @@ class CustomUserAdmin(UserAdmin):
         return form
 
 admin.site.register(CustomUser, CustomUserAdmin)
+admin.site.site_header = _("FishFarmMS Administration")
+admin.site.site_title = _("FishFarmMS Admin Panel")
+admin.site.index_title = _("Welcome to FishFarmMS Dashboard")
