@@ -6,7 +6,7 @@ from .models import USER_ROLES, ADMIN_ROLES
 User = get_user_model()
 
 class CustomUserSerializer(serializers.ModelSerializer):
-    password2 = serializers.CharField(write_only=True)  # Add password2 field
+    password2 = serializers.CharField(write_only=True) 
     role = serializers.ChoiceField(choices=USER_ROLES, default='farmer')
 
     class Meta:
@@ -22,7 +22,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return data
 
     def create(self, validated_data):
-        validated_data.pop('password2')  # Remove password2 before creating the user
+        validated_data.pop('password2')
         return User.objects.create_user(**validated_data)
 
 

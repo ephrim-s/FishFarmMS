@@ -1,5 +1,4 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
-from django.contrib.auth import get_user_model
 from django.db import models
 
 
@@ -13,13 +12,6 @@ USER_ROLES = [
 ]
 
 ALL_ROLES = ADMIN_ROLES + USER_ROLES
-
-# def get_user_roles(is_admin=False, for_registration=False):
-#     if for_registration:
-#         return USER_ROLES
-#     if is_admin:
-#         return ADMIN_ROLES + USER_ROLES
-#     return USER_ROLES
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
