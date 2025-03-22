@@ -2,6 +2,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 
 
+
 # These are the role options based on user type
 ADMIN_ROLES = [('admin', 'Admin'), ('worker', 'Worker')]
 USER_ROLES = [
@@ -38,6 +39,7 @@ class CustomUser(AbstractUser):
     geo_location = models.CharField(max_length=255, blank=True, null=True)
     customer_address = models.TextField(blank=True, null=True)
     destination_address = models.TextField(blank=True, null=True)
+    otp = models.CharField(max_length=6, blank=True, null=True)
 
     objects = CustomUserManager()
 
@@ -52,3 +54,4 @@ def get_role_choices(self):
     if self.is_superuser or self.is_staff:
         return ADMIN_ROLES + USER_ROLES
     return USER_ROLES
+
