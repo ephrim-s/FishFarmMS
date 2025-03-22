@@ -1,11 +1,13 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from .models import USER_ROLES, ADMIN_ROLES
 
 User = get_user_model()
 
 class CustomUserSerializer(serializers.ModelSerializer):
     password2 = serializers.CharField(write_only=True)  # Add password2 field
+    role = serializers.ChoiceField(choices=USER_ROLES, default='farmer')
 
     class Meta:
         model = User
@@ -22,6 +24,14 @@ class CustomUserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data.pop('password2')  # Remove password2 before creating the user
         return User.objects.create_user(**validated_data)
+
+
+class AdminUserSerializer(serializers.ModelSerializer):
+    role = serializers.ChoiceField(choices=ADMIN_ROLES + USER_ROLES)
+
+    class Meta:
+        model = User
+        fields = '__all__'
 
 # Customized JWT Token to include user role
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):

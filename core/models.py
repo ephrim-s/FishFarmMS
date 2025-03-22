@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth import get_user_model
 from django.db import models
+
 
 # These are the role options based on user type
 ADMIN_ROLES = [('admin', 'Admin'), ('worker', 'Worker')]
@@ -10,12 +12,14 @@ USER_ROLES = [
     ('consumer', 'Consumer'),
 ]
 
-def get_user_roles(is_admin=False, for_registration=False):
-    if for_registration:
-        return USER_ROLES
-    if is_admin:
-        return ADMIN_ROLES + USER_ROLES
-    return USER_ROLES
+ALL_ROLES = ADMIN_ROLES + USER_ROLES
+
+# def get_user_roles(is_admin=False, for_registration=False):
+#     if for_registration:
+#         return USER_ROLES
+#     if is_admin:
+#         return ADMIN_ROLES + USER_ROLES
+#     return USER_ROLES
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
@@ -36,11 +40,7 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(unique=True)
-    role = models.CharField(
-        max_length=20,
-        choices=get_user_roles(for_registration=True),  # Show only USER_ROLES for registration
-        default='farmer'
-    )
+    role = models.CharField(max_length=20, choices=ALL_ROLES, default="farmer")
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     profile_image = models.ImageField(upload_to='profiles/', blank=True, null=True)
     geo_location = models.CharField(max_length=255, blank=True, null=True)
@@ -54,3 +54,9 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return f"{self.email} - {self.role}"
+
+
+def get_role_choices(self):
+    if self.is_superuser or self.is_staff:
+        return ADMIN_ROLES + USER_ROLES
+    return USER_ROLES
