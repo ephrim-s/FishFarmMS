@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Pond, PondRental, Contract
+from .models import Pond, PondRental, Contract, FishGrowth
 
 
 @admin.register(Pond)
@@ -23,3 +23,9 @@ class ContractAdmin(admin.ModelAdmin):
     list_display = ('id', 'rental', 'contract_file', 'created_at')
     search_fields = ('rental__pond__name', 'rental__farmer__email')
     ordering = ('-created_at',)
+
+@admin.register(FishGrowth)
+class FishGrowthAdmin(admin.ModelAdmin):
+    list_display = ("rental", "recorded_at", "size_in_cm")
+    list_filter = ("recorded_at",)
+    search_fields = ("rental__pond__name", "rental__farmer__email")

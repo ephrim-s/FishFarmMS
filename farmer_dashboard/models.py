@@ -42,3 +42,14 @@ class Contract(models.Model):
 
     def __str__(self):
         return f"Contract for {self.rental.pond.name} rented by {self.rental.farmer.email}"
+
+class FishGrowth(models.Model):
+    rental = models.ForeignKey(PondRental, on_delete=models.CASCADE, related_name='growth_records')
+    image = models.ImageField(upload_to="fish_growth/images/", blank=True, null=True)
+    video = models.FileField(upload_to="fish_growth/videos/", blank=True, null=True)
+    recorded_at = models.DateTimeField(auto_now_add=True)
+    size_in_cm = models.DecimalField(max_digits=5, decimal_places=2, help_text="Fish size in cm")
+
+    def __str__(self):
+        return f"Growht record for {self.rental.pond.name} on {self.recorded_at}"
+    

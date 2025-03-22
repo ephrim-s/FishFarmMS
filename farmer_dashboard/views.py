@@ -1,9 +1,10 @@
-from rest_framework import viewsets, permissions, status
+from rest_framework import generics, viewsets, permissions, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
-from .models import Pond, PondRental, Contract
-from .serializers import PondSerializer, PondRentalSerializer, ContractSerializer
+from .models import Pond, PondRental, Contract, FishGrowth
+from .serializers import PondSerializer, PondRentalSerializer, ContractSerializer, FishGrowthSerializer
+from core.permissions import IsWorkerOrAdmin
 
 
 class PondViewSet(viewsets.ReadOnlyModelViewSet):
@@ -44,3 +45,16 @@ class ContractViewSet(viewsets.ModelViewSet):
 
         contract = Contract.objects.create(rental=rental, file=request.FILES['file'])
         return Response(ContractSerializer(contract).data, status=status.HTTP_201_CREATED)
+    
+class FishGrowthCreateView(generics.ListCreateAPIView):
+    queryset = FishGrowth.objects.all()
+    serializer_class = FishGrowthSerializer
+    permission_classes = [IsWorkerOrAdmin]
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+class FishGrowthDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = FishGrowth.objects.all()
+    serializer_class = FishGrowthSerializer
+    permission_classes = [IsWorkerOrAdmin]
