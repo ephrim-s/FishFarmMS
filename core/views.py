@@ -1,8 +1,11 @@
 from rest_framework import generics
 from django.contrib.auth import get_user_model
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .serializers import CustomUserSerializer, CustomTokenObtainPairSerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from . permissions import *
 
 User = get_user_model()
 
@@ -15,3 +18,22 @@ class RegisterUserView(generics.CreateAPIView):
 # This is a Custom JWT Login API
 class CustomTokenObtainPairView(TokenObtainPairView):
     serializer_class = CustomTokenObtainPairSerializer
+
+
+class AdminDashboardView(APIView):
+    permission_classes = [IsAuthenticated, IsAdmin]
+
+    def get(self, request):
+        return Response({"message": "Welcome, Admin"})
+
+class FarmerDashboardView(APIView):
+    permission_classes = [IsAuthenticated, IsExternalFarmer]
+
+    def get(self, request):
+        return Response({"message": "Welcome, External Farmer!"})
+    
+class OrderHistoryView(APIView):
+    permission_classes = [IsAuthenticated, IsWholesalerOrRetailerOrConsumer]
+
+    def get(self, request):
+        return Response({"message": "Order history for Wholesalers, Retailers, and Consumers!"})

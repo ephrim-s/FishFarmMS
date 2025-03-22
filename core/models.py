@@ -10,6 +10,13 @@ USER_ROLES = [
     ('consumer', 'Consumer'),
 ]
 
+def get_user_roles(is_admin=False, for_registration=False):
+    if for_registration:
+        return USER_ROLES
+    if is_admin:
+        return ADMIN_ROLES + USER_ROLES
+    return USER_ROLES
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -29,7 +36,11 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(unique=True)
-    role = models.CharField(max_length=20, choices=ADMIN_ROLES + USER_ROLES, default='farmer')
+    role = models.CharField(
+        max_length=20,
+        choices=get_user_roles(for_registration=True),  # Show only USER_ROLES for registration
+        default='farmer'
+    )
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     profile_image = models.ImageField(upload_to='profiles/', blank=True, null=True)
     geo_location = models.CharField(max_length=255, blank=True, null=True)
