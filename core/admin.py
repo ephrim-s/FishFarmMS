@@ -7,14 +7,14 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
 
     # Display in admin panel
-    list_display = ('email', 'role', 'phone_number', 'is_active', 'is_staff', 'date_joined')
+    list_display = ('email', 'role', 'first_name', 'last_name', 'phone_number', 'is_active', 'is_staff', 'date_joined')
     list_filter = ('role', 'is_active', 'is_staff')
     ordering = ('email',)
 
 
     fieldsets = (
         ('Account Info', {'fields': ('email', 'password')}),
-        ('Personal Info', {'fields': ('phone_number', 'profile_image', 'geo_location', 'customer_address', 'destination_address')}),
+        ('Personal Info', {'fields': ('first_name', 'last_name', 'phone_number', 'profile_image', 'geo_location', 'customer_address', 'destination_address')}),
         ('Permissions', {'fields': ('role', 'is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         ('Important Dates', {'fields': ('last_login', 'date_joined')}),
     )
@@ -23,7 +23,7 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'role', 'phone_number', 'is_active', 'is_staff', 'is_superuser'),
+            'fields': ('first_name', 'last_name', 'email', 'password1', 'password2', 'role', 'phone_number', 'is_active', 'is_staff', 'is_superuser'),
         }),
     )
 
@@ -33,7 +33,7 @@ class CustomUserAdmin(UserAdmin):
             return super().get_fieldsets(request, obj) 
         return (
             ('Account Info', {'fields': ('email', 'password')}),
-            ('Personal Info', {'fields': ('phone_number', 'profile_image', 'geo_location', 'customer_address', 'destination_address')}),
+            ('Personal Info', {'fields': ('first_name', 'last_name', 'phone_number', 'profile_image', 'geo_location', 'customer_address', 'destination_address')}),
         )
 
     def get_form(self, request, obj=None, **kwargs):
