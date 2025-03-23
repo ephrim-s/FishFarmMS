@@ -25,12 +25,6 @@ class AdminDashboardView(APIView):
 
     def get(self, request):
         return Response({"message": "Welcome, Admin"})
-
-class FarmerDashboardView(APIView):
-    permission_classes = [IsAuthenticated, IsExternalFarmer]
-
-    def get(self, request):
-        return Response({"message": "Welcome, External Farmer!"})
     
 class OrderHistoryView(APIView):
     permission_classes = [IsAuthenticated, IsWholesalerOrRetailerOrConsumer]

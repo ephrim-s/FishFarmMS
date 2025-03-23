@@ -1,12 +1,17 @@
-from rest_framework import generics, viewsets, permissions, status
+from rest_framework import generics, viewsets, permissions, status, views
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
 from .models import Pond, PondRental, Contract, FishGrowth
 from .serializers import PondSerializer, PondRentalSerializer, ContractSerializer, FishGrowthSerializer
-from core.permissions import IsWorkerOrAdmin
+from core.permissions import IsWorkerOrAdmin, IsExternalFarmer
 
+class FarmerDashboardView(views.APIView):
+    permission_classes = [permissions.IsAuthenticated, IsExternalFarmer]
 
+    def get(self, request):
+        return Response({"message": "Welcome, External Farmer!"})
+    
 class PondViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Pond.objects.filter(status='available')
     serializer_class = PondSerializer

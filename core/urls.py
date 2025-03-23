@@ -10,6 +10,5 @@ urlpatterns = [
 
 urlpatterns += [
     path('admin-dashboard/', AdminDashboardView.as_view(), name='admin_dashboard'),
-    path('farmer-dashboard/', FarmerDashboardView.as_view(), name='farmer_dashboard'),
     path('order-history/', OrderHistoryView.as_view(), name='order_history'),
 ]
