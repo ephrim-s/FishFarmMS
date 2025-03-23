@@ -2,8 +2,8 @@ from rest_framework import generics, viewsets, permissions, status, views
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
-from .models import Pond, PondRental, Contract, FishGrowth
-from .serializers import PondSerializer, PondRentalSerializer, ContractSerializer, FishGrowthSerializer
+from .models import Pond, PondRental, Contract, FishGrowth, Expense
+from .serializers import PondSerializer, PondRentalSerializer, ContractSerializer, FishGrowthSerializer, ExpenseSerializer
 from core.permissions import IsWorkerOrAdmin, IsExternalFarmer
 
 class FarmerDashboardView(views.APIView):
@@ -63,3 +63,15 @@ class FishGrowthDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = FishGrowth.objects.all()
     serializer_class = FishGrowthSerializer
     permission_classes = [IsWorkerOrAdmin]
+
+class ExpenseListCreateView(generics.ListCreateAPIView):
+    queryset = Expense.objects.all().order_by('-date')
+    serializer_class = ExpenseSerializer
+
+    def get_permissions(self):
+        if self.request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
+            return [IsWorkerOrAdmin()]
+        return [permissions.AllowAny()]
+    
+    def perform_create(self, serializer):
+        serializer.save(recorded_by=self.request.user)

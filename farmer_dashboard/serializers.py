@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Pond, PondRental, Contract, FishGrowth
+from .models import Pond, PondRental, Contract, FishGrowth, Expense
 
 class PondSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,3 +21,10 @@ class FishGrowthSerializer(serializers.ModelSerializer):
         model = FishGrowth
         fields = "__all__"
 
+class ExpenseSerializer(serializers.ModelSerializer):
+    recorded_by = serializers.ReadOnlyField(source='recorded_by.email')
+
+    class Meta:
+        model = Expense
+        fields = ['id', 'category', 'amount', 'description', 'date', 'recorded_by']
+        

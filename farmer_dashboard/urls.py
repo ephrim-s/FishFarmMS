@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import ContractViewSet, PondViewSet, PondRentalViewSet, FishGrowthCreateView, FishGrowthDetailView, FarmerDashboardView
+from .views import ContractViewSet, PondViewSet, PondRentalViewSet, FishGrowthCreateView, FishGrowthDetailView, FarmerDashboardView, ExpenseListCreateView
 
 router = DefaultRouter()
 router.register(r'ponds', PondViewSet) 
@@ -12,4 +12,5 @@ urlpatterns = [
     path('dashboard/', FarmerDashboardView.as_view(), name='farmer-dashboard'),
     path('fish-growth/', FishGrowthCreateView.as_view(), name='fish-growth'), 
     path('fish-growth/<int:pk>/', FishGrowthDetailView.as_view(), name='fish-growth-detail'),
+    path('expenses/', ExpenseListCreateView.as_view(), name='expense-list-create'),
 ]

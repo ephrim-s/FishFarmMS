@@ -52,4 +52,28 @@ class FishGrowth(models.Model):
 
     def __str__(self):
         return f"Growht record for {self.rental.pond.name} on {self.recorded_at}"
+
+class Expense(models.Model):
+    CATEGORY_CHOICES = [
+        ('feed', 'Feed'),
+        ('medication', 'Medication'),
+        ('maintenance', 'Maintenance'),
+        ('fingerlings', 'Fingerlings'),
+        ('others', 'Others'),
+    ]
+    category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.TextField(blank=True, null=True)
+    date = models.DateField(auto_now_add=True)
+    recorded_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    recorded_by_name = models.CharField(max_length=100, blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        if self.recorded_by and not self.recorded_by_name:
+            self.recorded_by_name = self.recorded_by.get_full_name() or self.recorded_by.email
+        super().save(*args, **kwargs)
+    
+    def __str__(self):
+        return f"{self.get_cagetory_display()} - {self.amount}"
+    
     
