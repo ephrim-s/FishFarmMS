@@ -2,8 +2,8 @@ from rest_framework import generics, viewsets, permissions, status, views
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
-from .models import Pond, PondRental, Contract, FishGrowth, Expense
-from .serializers import PondSerializer, PondRentalSerializer, ContractSerializer, FishGrowthSerializer, ExpenseSerializer
+from .models import Pond, PondRental, Contract, FishGrowth, Expense, Commission, CommissionRate, InsurancePackage, FarmerInsurance
+from .serializers import PondSerializer, PondRentalSerializer, ContractSerializer, FishGrowthSerializer, ExpenseSerializer, CommissionRateSerializer, CommissionSerializer, InsurancePackageSerializer, FarmerInsuranceSerializer
 from core.permissions import IsWorkerOrAdmin, IsExternalFarmer
 
 class FarmerDashboardView(views.APIView):
@@ -75,3 +75,24 @@ class ExpenseListCreateView(generics.ListCreateAPIView):
     
     def perform_create(self, serializer):
         serializer.save(recorded_by=self.request.user)
+
+class CommissionRateView(generics.RetrieveUpdateAPIView):
+    queryset = CommissionRate.objects.all()
+    serializer_class = CommissionRateSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+    def get_object(self):
+        return CommissionRate.get_current_rates()
+
+class InsurancePackageViewSet(viewsets.ModelViewSet):
+    queryset = InsurancePackage.objects.filter(is_active=True)
+    serializer_class = InsurancePackageSerializer
+    permission_classes = [permissions.IsAdminUser]  # Only admins can manage packages
+
+class FarmerInsuranceViewSet(viewsets.ModelViewSet):
+    queryset = FarmerInsurance.objects.all()
+    serializer_class = FarmerInsuranceSerializer
+    permission_classes = [permissions.IsAuthenticated]  # Only authenticated users can access
+
+    def perform_create(self, serializer):
+        serializer.save(farmer=self.request.user)

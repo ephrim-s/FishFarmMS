@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Pond, PondRental, Contract, FishGrowth
+from .models import Pond, PondRental, Contract, FishGrowth, CommissionRate, Commission
 
 
 @admin.register(Pond)
@@ -29,3 +29,12 @@ class FishGrowthAdmin(admin.ModelAdmin):
     list_display = ("rental", "recorded_at", "size_in_cm")
     list_filter = ("recorded_at",)
     search_fields = ("rental__pond__name", "rental__farmer__email")
+
+@admin.register(Commission)
+class CommissionAdmin(admin.ModelAdmin):
+    list_display = ['type', 'amount', 'transaction', 'created_at']
+    list_filter = ['type', 'created_at']
+
+@admin.register(CommissionRate)
+class CommissionRateAdmin(admin.ModelAdmin):
+    list_display = ['rental_rate', 'sales_rate', 'updated_at']
