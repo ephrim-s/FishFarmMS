@@ -36,7 +36,7 @@ Setup Instructions
 6. Run the Server
     python manage.py runserver
 
-
+Stock & Inventory Management, Farm Worker Management, Wholesalers & Retailers, Delivery Service Features Features
 
 Next Steps
 
