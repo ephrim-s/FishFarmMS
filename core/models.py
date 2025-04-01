@@ -54,6 +54,6 @@ class CustomUser(AbstractUser):
 
 def get_role_choices(self):
     if self.is_superuser or self.is_staff:
-        return ADMIN_ROLES + USER_ROLES
+        return ALL_ROLES
     return USER_ROLES
 
