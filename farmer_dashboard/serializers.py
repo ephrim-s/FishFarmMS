@@ -12,7 +12,7 @@ class PondSerializer(serializers.ModelSerializer):
 class PondRentalSerializer(serializers.ModelSerializer):
     class Meta:
         model = PondRental
-        fields = ['id', 'farmers', 'pond', 'rental_start', 'rental_end', 'status']
+        fields = ['id', 'farmer', 'pond', 'start_date', 'end_date', 'is_active']
 
 class ContractSerializer(serializers.ModelSerializer):
     class Meta:

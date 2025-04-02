@@ -131,5 +131,35 @@ Sample Data for Testing the API's
 
 }
 
-sample data for creating ponds
+{
+    "email":"john@example.com",
+    "first_name":"John",
+    "last_name":"Appiah",
+    "role":"worker",
+    "password":"john123",
+    "password2":"john123"
 
+}
+
+sample data for creating ponds
+{
+    "name":"pond4",
+    "lengh":"10",
+    "width":"5",
+    "hiegth":"3.5"
+    "location":"role4 col6",
+    "retal_price"1000",
+}
+
+sample data for renting pond
+{
+    "pond":"",
+    "start_date":"2025-04-02",
+    "end_date":"2025-10-02",
+}
+
+sample data for logout
+
+{
+  "refresh_token": "your_refresh_token_here"
+}

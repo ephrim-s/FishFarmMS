@@ -17,6 +17,26 @@ class PondViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = PondSerializer
     permission_classes = [permissions.AllowAny]
 
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return Pond.objects.all()
+        return Pond.objects.filter(status='available')
+
+class AddOrViewPond(viewsets.ModelViewSet):
+    queryset = Pond.objects.filter(status='available')
+    serializer_class = PondSerializer
+    permission_classes = [permissions.IsAdminUser]
+
+    def get_queryset(self):
+        if self.request.user.is_staff:
+            return Pond.objects.all()
+        return Pond.objects.filter(status='available')
+    
+    def perform_create(self, serializer):
+        if not self.request.is_staff:
+            raise permissions.PermissionDenied("Only adin can add new ponds")
+        serializer.save()
+
 class PondRentalViewSet(viewsets.ModelViewSet):
     queryset = PondRental.objects.all()
     serializer_class = PondRentalSerializer
@@ -25,9 +45,14 @@ class PondRentalViewSet(viewsets.ModelViewSet):
     def create(self, request, *args, **kwargs):
         farmer = request.user
         pond_id = request.data.get('pond')
-        pond = get_object_or_404(Pond, id=pond_id, status='available')
+        start_date = request.data.get('start_date')
+        end_date = request.data.get('end_date')
 
-        rental = PondRental.objects.create(farmer=farmer, pond=pond)
+        if not start_date or not end_date:
+            return Response({"error": "Start and end date are required."}, status=status.HTTP_400_BAD_REQUEST)
+        
+        pond = get_object_or_404(Pond, id=pond_id, status='available')
+        rental = PondRental.objects.create(farmer=farmer, pond=pond, start_date=start_date, end_date=end_date)
         pond.status = 'rented'
         pond.save()
 

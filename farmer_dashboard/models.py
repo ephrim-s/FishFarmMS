@@ -12,9 +12,9 @@ class Pond(models.Model):
     ]
 
     name = models.CharField(max_length=100)
-    length = models.DecimalField(max_digits=20, decimal_places=0) # Size in squre ft
-    width = models.DecimalField(max_digits=20, decimal_places=0) # Size in squre ft
-    heigth = models.DecimalField(max_digits=20, decimal_places=1) # Size in squre ft
+    length = models.DecimalField(max_digits=20, decimal_places=0) 
+    width = models.DecimalField(max_digits=20, decimal_places=0)
+    heigth = models.DecimalField(max_digits=20, decimal_places=1) 
     location = models.CharField(max_length=100)
     rental_price = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=25, choices=STATUS_CHOICES, default='available')
@@ -35,7 +35,10 @@ class PondRental(models.Model):
     def save(self, *args, **kwargs):
         if self.is_active:
             self.pond.status = 'rented'
-            self.pond.save()
+        else:
+            self.pond.status = 'available'
+
+        self.pond.save()
         super().save(*args, **kwargs)
     
     def __str__(self):
