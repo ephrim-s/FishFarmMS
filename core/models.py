@@ -51,10 +51,3 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return f"{self.email} - {self.role}"
-
-
-def get_role_choices(self):
-    if self.is_superuser or self.is_staff:
-        return ALL_ROLES
-    return USER_ROLES
-

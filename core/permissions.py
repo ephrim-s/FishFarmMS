@@ -20,6 +20,11 @@ class IsExternalFarmer(BasePermission):
     def has_permission(self, request, view):
         return request.user.is_authenticated and request.user.role == 'farmer'
 
+# This permission allows access to only users with Outgrower Farmers role
+class IsExternalFarmer(BasePermission):
+    def has_permission(self, request, view):
+        return request.user.is_authenticated and request.user.role == 'outgrower'
+
 # This permission allows access to only users with wholesale, retail and consumer
 class IsWholesalerOrRetailerOrConsumer(BasePermission):
     def has_permission(self, request, view):
