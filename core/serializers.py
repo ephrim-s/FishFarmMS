@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from .models import USER_ROLES, ADMIN_ROLES
+from .models import USER_ROLES, ALL_ROLES
 
 User = get_user_model()
 
@@ -27,7 +27,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
 
 class AdminUserSerializer(serializers.ModelSerializer):
-    role = serializers.ChoiceField(choices=ADMIN_ROLES + USER_ROLES)
+    role = serializers.ChoiceField(choices=ALL_ROLES)
 
     class Meta:
         model = User

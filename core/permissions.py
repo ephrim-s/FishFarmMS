@@ -7,7 +7,7 @@ class IsAdmin(BasePermission):
         return request.user.is_authenticated and request.user.role == 'admin'
 
 
-# This permission allows access to only users with Admin or Worder role
+# This permission allows access to only users with Admin or Worker role
 class IsWorkerOrAdmin(BasePermission):
     def has_permission(self, request, view):
         if request.method in SAFE_METHODS:
