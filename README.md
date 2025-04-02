@@ -94,9 +94,7 @@ Sample Data for Testing the API's
     * endpoint: localhost:8000/api/auth/register
 
 {
-    "email":"samuel@example.com",
-    "first_name":"Samuel",
-    "last_name":"Ephrim",
+    "email":"admin@example.com",
     "role":"admin",
     "password":"samuel123",
     "password2":"samuel123"
@@ -109,7 +107,7 @@ Sample Data for Testing the API's
     "last_name":"Bans",
     "role":"farmer",
     "password":"sarah123",
-    "password2":"sarahl123"
+    "password2":"sarah123"
 
 }
 
@@ -132,3 +130,6 @@ Sample Data for Testing the API's
     "password2":"dominicl123"
 
 }
+
+sample data for creating ponds
+

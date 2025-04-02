@@ -1,7 +1,7 @@
 from rest_framework.permissions import BasePermission, SAFE_METHODS
 
-# This permission allows access to only users with admin role
 
+# This permission allows access to only users with admin role
 class IsAdmin(BasePermission):
     def has_permission(self, request, view):
         return request.user.is_authenticated and request.user.role == 'admin'
@@ -21,7 +21,7 @@ class IsExternalFarmer(BasePermission):
         return request.user.is_authenticated and request.user.role == 'farmer'
 
 # This permission allows access to only users with Outgrower Farmers role
-class IsExternalFarmer(BasePermission):
+class IsOutgrowerFarmer(BasePermission):
     def has_permission(self, request, view):
         return request.user.is_authenticated and request.user.role == 'outgrower'
 
