@@ -7,6 +7,7 @@ from django.db import models
 ADMIN_ROLES = [('admin', 'Admin'), ('worker', 'Worker')]
 USER_ROLES = [
     ('farmer', 'External Farmer'),
+    ('outgrower', 'Outgrower'),
     ('wholesaler', 'Wholesaler'),
     ('retailer', 'Retailer'),
     ('consumer', 'Consumer'),
