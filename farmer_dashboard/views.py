@@ -27,7 +27,7 @@ class PondRentalViewSet(viewsets.ModelViewSet):
         pond_id = request.data.get('pond')
         pond = get_object_or_404(Pond, id=pond_id, status='available')
 
-        rental = PondRental.obejcts.create(farmer=farmer, pond=pond, status='active')
+        rental = PondRental.objects.create(farmer=farmer, pond=pond)
         pond.status = 'rented'
         pond.save()
 

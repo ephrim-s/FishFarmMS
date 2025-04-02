@@ -12,13 +12,18 @@ class Pond(models.Model):
     ]
 
     name = models.CharField(max_length=100)
-    size = models.DecimalField(max_digits=20, decimal_places=2) # Size in squre ft
+    length = models.DecimalField(max_digits=20, decimal_places=0) # Size in squre ft
+    width = models.DecimalField(max_digits=20, decimal_places=0) # Size in squre ft
+    heigth = models.DecimalField(max_digits=20, decimal_places=1) # Size in squre ft
     location = models.CharField(max_length=100)
     rental_price = models.DecimalField(max_digits=10, decimal_places=2)
     status = models.CharField(max_length=25, choices=STATUS_CHOICES, default='available')
 
     def __str__(self):
         return f"{self.name} - {self.get_status_display()}"
+    
+    def get_size(self):
+        return f"{self.length} x {self.width} x {self.heigth} ft"
 
 class PondRental(models.Model):
     farmer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='pond_rentals')

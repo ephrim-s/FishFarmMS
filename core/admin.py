@@ -7,7 +7,7 @@ class CustomUserAdmin(UserAdmin):
     model = CustomUser
 
     # Display in admin panel
-    list_display = ('email', 'role', 'first_name', 'last_name', 'phone_number', 'is_active', 'is_staff', 'date_joined')
+    list_display = ('id', 'email', 'role', 'first_name', 'last_name', 'phone_number', 'is_active', 'is_staff', 'date_joined')
     list_filter = ('role', 'is_active', 'is_staff')
     ordering = ('email',)
 

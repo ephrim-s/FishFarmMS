@@ -4,7 +4,10 @@ from .models import Pond, PondRental, Contract, FishGrowth, Expense, Commission,
 class PondSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pond
-        fields = ['id', 'name', 'size', 'location', 'status']
+        fields = ['id', 'name', 'location', 'status']
+    
+    # def get_size(self, obj):
+    #     return obj.get_size()
     
 class PondRentalSerializer(serializers.ModelSerializer):
     class Meta:

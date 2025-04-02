@@ -4,10 +4,15 @@ from .models import Pond, PondRental, Contract, FishGrowth, CommissionRate, Comm
 
 @admin.register(Pond)
 class PondAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'size', 'location', 'rental_price', 'status')
+    list_display = ('id', 'name', 'formatted_size', 'location', 'rental_price', 'status')
     search_fields = ('name', 'location')
     list_filter = ('status',)
     ordering = ('name',)
+
+    def formatted_size(self, obj):
+        return obj.get_size()
+    
+    formatted_size.short_description = 'Size (L x W x H)'
 
 
 @admin.register(PondRental)
