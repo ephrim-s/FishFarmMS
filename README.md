@@ -35,7 +35,7 @@ Features Implemented So Far
 Setup Instructions
 
 1. Clone the Repository
-    git clone https://github.com/yourusername/FishFarmMS.git
+    git clone https://github.com/ephrim-s/FishFarmMS.git
     cd FishFarmMS
 
 2. Create a Virtual Environment
