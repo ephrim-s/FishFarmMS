@@ -12,7 +12,7 @@ class IsWorkerOrAdmin(BasePermission):
     def has_permission(self, request, view):
         if request.method in SAFE_METHODS:
             return True
-        return request.user.is_athenticated and request.user.role in ["worker", "admin"]
+        return request.user.is_authenticated and request.user.role in ["worker", "admin"]
     
 
 # This permission allows access to only users with External Farmers role

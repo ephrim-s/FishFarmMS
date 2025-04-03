@@ -56,8 +56,9 @@ class FishGrowth(models.Model):
     rental = models.ForeignKey(PondRental, on_delete=models.CASCADE, related_name='growth_records')
     image = models.ImageField(upload_to="fish_growth/images/", blank=True, null=True)
     video = models.FileField(upload_to="fish_growth/videos/", blank=True, null=True)
-    recorded_at = models.DateTimeField(auto_now_add=True)
     size_in_cm = models.DecimalField(max_digits=5, decimal_places=2, help_text="Fish size in cm")
+    recorded_at = models.DateTimeField(auto_now_add=True)
+    recorded_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Growht record for {self.rental.pond.name} on {self.recorded_at}"
@@ -70,11 +71,13 @@ class Expense(models.Model):
         ('fingerlings', 'Fingerlings'),
         ('others', 'Others'),
     ]
+    
+    farmer = models.ForeignKey(User, on_delete=models.CASCADE, related_name="expenses") 
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField(blank=True, null=True)
     date = models.DateField(auto_now_add=True)
-    recorded_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    recorded_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name="recorded_expenses")  
     recorded_by_name = models.CharField(max_length=100, blank=True, null=True)
 
     def save(self, *args, **kwargs):
@@ -83,8 +86,7 @@ class Expense(models.Model):
         super().save(*args, **kwargs)
     
     def __str__(self):
-        return f"{self.get_cagetory_display()} - {self.amount}"
-    
+        return f"{self.get_category_display()} - {self.amount} by {self.farmer.email}"
     
 class CommissionRate(models.Model):
     rental_rate = models.DecimalField(max_digits=5, decimal_places=2, default=10.00, help_text="Commission percentage for pond rentals")
@@ -97,7 +99,7 @@ class CommissionRate(models.Model):
     @classmethod
     def get_current_rates(cls):
         """Retrieve the latest commission rates (or create default if none exist)."""
-        obj, _ = cls.objects.get_or_create(id=1)  # Ensures a single instance exists
+        obj, _ = cls.objects.get_or_create(id=1)  
         return obj
     
     

@@ -81,7 +81,7 @@ class FishGrowthCreateView(generics.ListCreateAPIView):
     permission_classes = [IsWorkerOrAdmin]
 
     def perform_create(self, serializer):
-        serializer.save()
+        serializer.save(recorded_by=self.request.user)
 
 class FishGrowthDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = FishGrowth.objects.all()
@@ -89,16 +89,18 @@ class FishGrowthDetailView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsWorkerOrAdmin]
 
 class ExpenseListCreateView(generics.ListCreateAPIView):
-    queryset = Expense.objects.all().order_by('-date')
     serializer_class = ExpenseSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
-    def get_permissions(self):
-        if self.request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
-            return [IsWorkerOrAdmin()]
-        return [permissions.AllowAny()]
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_superuser or user.is_staff: 
+            return Expense.objects.all().order_by('-date')
+        return Expense.objects.filter(farmer=user).order_by('-date')  
     
     def perform_create(self, serializer):
-        serializer.save(recorded_by=self.request.user)
+        user = self.request.user
+        serializer.save(farmer=user, recorded_by=user)
 
 class CommissionRateView(generics.RetrieveUpdateAPIView):
     queryset = CommissionRate.objects.all()

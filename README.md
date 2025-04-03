@@ -99,24 +99,33 @@ http://localhost:8000/api/auth/logout/
 http://localhost:8000/farmer-dashboard/ponds/
 http://localhost:8000/farmer-dashboard/add-pond/
 http://localhost:8000/farmer-dashboard/pond-rentals/
+http://localhost:8000/farmer-dashboard/fish-growth/
+http://localhost:8000/farmer-dashboard/fish-growth/<int:pk>/
 http://localhost:8000/farmer-dashboard/contracts/
 http://localhost:8000/farmer-dashboard/insurance-packages/
 http://localhost:8000/farmer-dashboard/farmer-insurance/
-http://localhost:8000/farmer-dashboard/fish-growth/
-http://localhost:8000/farmer-dashboard/fish-growth/<int:pk>/
 http://localhost:8000/farmer-dashboard/expenses/
 http://localhost:8000/farmer-dashboard/commission-rate/
+
+
+--admin dashboard--
+http://localhost:8000/api/auth/admin-dashboard/
+
+--farmer dashboard--
+http://localhost:8000/farmer-dahsboard/dashboard/
+
 
 
 
 ---Sample Data for Testing the API's---
 
-- creating user 
-    * endpoint: http://localhost:8000/api/auth/register
+- creating user -
 
 {
-    "email":"admin@example.com",
-    "role":"admin",
+    "email":"samuel@example.com",
+    "first_name":"Samuel",
+    "last_name":"Ephrim",
+    "role":"outgrower",
     "password":"samuel123",
     "password2":"samuel123"
 
@@ -161,6 +170,15 @@ http://localhost:8000/farmer-dashboard/commission-rate/
     "password2":"john123"
 
 }
+{
+    "email":"johnson@example.com",
+    "first_name":"Johnson",
+    "last_name":"Ments",
+    "role":"retailer",
+    "password":"johnson123",
+    "password2":"johnson123"
+
+}
 
 
 
@@ -195,4 +213,23 @@ sample data for renting pond
     "pond":"",
     "start_date":"2025-04-02",
     "end_date":"2025-10-02",
+}
+
+sample data for fish growth record
+{    
+    "rental":"5",
+    "size_in_cm":"10"
+}
+
+sample data for creating expense
+{
+    "category": "feed",
+    "amount": 5000.75,
+    "description": "Purchased fish feed for the pond"
+}
+
+{
+    "category": "medication",
+    "amount": 1200.50,
+    "description": "Bought antibiotics for fish treatment"
 }

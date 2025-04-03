@@ -30,14 +30,16 @@ class FishGrowthSerializer(serializers.ModelSerializer):
     class Meta:
         model = FishGrowth
         fields = "__all__"
+        read_only_fields = ['recorded_by']
 
 class ExpenseSerializer(serializers.ModelSerializer):
     recorded_by = serializers.ReadOnlyField(source='recorded_by.email')
+    farmer = serializers.ReadOnlyField(source='farmer.email')  
 
     class Meta:
         model = Expense
-        fields = ['id', 'category', 'amount', 'description', 'date', 'recorded_by']
-
+        fields = ['id', 'farmer', 'category', 'amount', 'description', 'date', 'recorded_by']
+        
 class CommissionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Commission
