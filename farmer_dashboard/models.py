@@ -16,7 +16,7 @@ class Pond(models.Model):
     width = models.DecimalField(max_digits=20, decimal_places=0)
     heigth = models.DecimalField(max_digits=20, decimal_places=1) 
     location = models.CharField(max_length=100)
-    rental_price = models.DecimalField(max_digits=10, decimal_places=2)
+    rental_price = models.DecimalField(max_digits=10, decimal_places=2, default=1000.00)
     status = models.CharField(max_length=25, choices=STATUS_CHOICES, default='available')
 
     def __str__(self):

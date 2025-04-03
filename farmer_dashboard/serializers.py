@@ -2,12 +2,19 @@ from rest_framework import serializers
 from .models import Pond, PondRental, Contract, FishGrowth, Expense, Commission, CommissionRate, InsurancePackage, FarmerInsurance
 
 class PondSerializer(serializers.ModelSerializer):
+    size = serializers.SerializerMethodField()
+
     class Meta:
         model = Pond
-        fields = ['id', 'name', 'location', 'status']
+        fields = ['id', 'name', 'size', 'location', 'status']
     
-    # def get_size(self, obj):
-    #     return obj.get_size()
+    def get_size(self, obj):
+        return obj.get_size()
+
+class PondCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Pond
+        fields = fields = ['id', 'name', 'length', 'width', 'heigth', 'location', 'status', 'rental_price']
     
 class PondRentalSerializer(serializers.ModelSerializer):
     class Meta:
@@ -36,10 +43,10 @@ class CommissionSerializer(serializers.ModelSerializer):
         model = Commission
         fields = ['id', 'type', 'amount', 'transaction', 'created_at']
 
-class CommissionRateSerializer(serializers.ModelField):
+class CommissionRateSerializer(serializers.ModelSerializer):
     class Meta:
         model = CommissionRate
-        fields = ['rental-rate', 'sales_rate', 'updated_at']
+        fields = ['rental_rate', 'sales_rate', 'updated_at']
         read_only_fields = ['updated_at']
 
 class InsurancePackageSerializer(serializers.ModelSerializer):

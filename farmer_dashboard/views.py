@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
 from .models import Pond, PondRental, Contract, FishGrowth, Expense, Commission, CommissionRate, InsurancePackage, FarmerInsurance
-from .serializers import PondSerializer, PondRentalSerializer, ContractSerializer, FishGrowthSerializer, ExpenseSerializer, CommissionRateSerializer, CommissionSerializer, InsurancePackageSerializer, FarmerInsuranceSerializer
+from .serializers import PondSerializer, PondRentalSerializer, ContractSerializer, FishGrowthSerializer, ExpenseSerializer, CommissionRateSerializer, CommissionSerializer, InsurancePackageSerializer, FarmerInsuranceSerializer, PondCreateSerializer
 from core.permissions import IsWorkerOrAdmin, IsExternalFarmer
 
 class FarmerDashboardView(views.APIView):
@@ -23,8 +23,7 @@ class PondViewSet(viewsets.ReadOnlyModelViewSet):
         return Pond.objects.filter(status='available')
 
 class AddOrViewPond(viewsets.ModelViewSet):
-    queryset = Pond.objects.filter(status='available')
-    serializer_class = PondSerializer
+    queryset = Pond.objects.all()
     permission_classes = [permissions.IsAdminUser]
 
     def get_queryset(self):
@@ -32,8 +31,15 @@ class AddOrViewPond(viewsets.ModelViewSet):
             return Pond.objects.all()
         return Pond.objects.filter(status='available')
     
+    def get_serializer_class(self):
+        if self.action in ['create', 'update']:
+            return PondCreateSerializer
+        return PondSerializer
+
+
+
     def perform_create(self, serializer):
-        if not self.request.is_staff:
+        if not self.request.user.is_staff:
             raise permissions.PermissionDenied("Only adin can add new ponds")
         serializer.save()
 
