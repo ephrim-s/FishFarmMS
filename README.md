@@ -101,11 +101,6 @@ http://localhost:8000/farmer-dashboard/add-pond/
 http://localhost:8000/farmer-dashboard/pond-rentals/
 http://localhost:8000/farmer-dashboard/fish-growth/
 http://localhost:8000/farmer-dashboard/fish-growth/<int:pk>/
-http://localhost:8000/farmer-dashboard/contracts/
-http://localhost:8000/farmer-dashboard/insurance-packages/
-http://localhost:8000/farmer-dashboard/farmer-insurance/
-http://localhost:8000/farmer-dashboard/expenses/
-http://localhost:8000/farmer-dashboard/commission-rate/
 
 
 --admin dashboard--
@@ -230,6 +225,12 @@ sample data for creating expense
 
 {
     "category": "medication",
+    "amount": 1200.50,
+    "description": "Bought antibiotics for fish treatment"
+}
+
+{
+    "category": "feed",
     "amount": 1200.50,
     "description": "Bought antibiotics for fish treatment"
 }

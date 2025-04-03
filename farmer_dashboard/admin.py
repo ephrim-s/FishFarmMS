@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Pond, PondRental, Contract, FishGrowth, CommissionRate, Commission, Expense
+from .models import Pond, PondRental, Contract, FishGrowth, CommissionRate, Commission, Expense, InsurancePackage
 
 
 @admin.register(Pond)
@@ -31,7 +31,7 @@ class ContractAdmin(admin.ModelAdmin):
 
 @admin.register(FishGrowth)
 class FishGrowthAdmin(admin.ModelAdmin):
-    list_display = ("rental", "recorded_at", "size_in_cm")
+    list_display = ("id", "rental", "recorded_at", "size_in_cm")
     list_filter = ("recorded_at",)
     search_fields = ("rental__pond__name", "rental__farmer__email")
 
@@ -52,6 +52,13 @@ class ExpenseAdmin(admin.ModelAdmin):
 
     def has_delete_permission(self, request, obj=None):
         return request.user.is_superuser
+
+@admin.register(InsurancePackage)
+class InsurancePackageAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'price', 'is_active')
+    search_fields = ('name', 'description', 'coverage_details')
+    list_filter = ('is_active',)
+    ordering = ('name',)
 
 @admin.register(Commission)
 class CommissionAdmin(admin.ModelAdmin):

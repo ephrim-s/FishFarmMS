@@ -113,12 +113,12 @@ class CommissionRateView(generics.RetrieveUpdateAPIView):
 class InsurancePackageViewSet(viewsets.ModelViewSet):
     queryset = InsurancePackage.objects.filter(is_active=True)
     serializer_class = InsurancePackageSerializer
-    permission_classes = [permissions.IsAdminUser]  # Only admins can manage packages
+    permission_classes = [permissions.IsAdminUser] 
 
 class FarmerInsuranceViewSet(viewsets.ModelViewSet):
     queryset = FarmerInsurance.objects.all()
     serializer_class = FarmerInsuranceSerializer
-    permission_classes = [permissions.IsAuthenticated]  # Only authenticated users can access
+    permission_classes = [permissions.IsAuthenticated]  
 
     def perform_create(self, serializer):
         serializer.save(farmer=self.request.user)
