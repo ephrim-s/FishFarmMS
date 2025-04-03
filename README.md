@@ -88,10 +88,31 @@ Enhance APIs for user roles and stock management.
 
 
 
-Sample Data for Testing the API's
+-- API ENDPOINTS For Core APP--
+
+http://localhost:8000/api/auth/register/
+http://localhost:8000/api/auth/login/
+http://localhost:8000/api/auth/token/refresh/
+http://localhost:8000/api/auth/logout/
+
+-- API ENDPOINTS For Farmer-DashBoard APP--
+http://localhost:8000/farmer-dashboard/ponds/
+http://localhost:8000/farmer-dashboard/add-pond/
+http://localhost:8000/farmer-dashboard/pond-rentals/
+http://localhost:8000/farmer-dashboard/contracts/
+http://localhost:8000/farmer-dashboard/insurance-packages/
+http://localhost:8000/farmer-dashboard/farmer-insurance/
+http://localhost:8000/farmer-dashboard/fish-growth/
+http://localhost:8000/farmer-dashboard/fish-growth/<int:pk>/
+http://localhost:8000/farmer-dashboard/expenses/
+http://localhost:8000/farmer-dashboard/commission-rate/
+
+
+
+---Sample Data for Testing the API's---
 
 - creating user 
-    * endpoint: localhost:8000/api/auth/register
+    * endpoint: http://localhost:8000/api/auth/register
 
 {
     "email":"admin@example.com",
@@ -141,25 +162,37 @@ Sample Data for Testing the API's
 
 }
 
-sample data for creating ponds
+
+
+---sample data for testing Refresh token--
+
 {
-    "name":"pond4",
-    "lengh":"10",
-    "width":"5",
-    "hiegth":"3.5"
-    "location":"role4 col6",
-    "retal_price"1000",
+    "refresh":"refresh_token"
 }
+
+---sample data for logout--
+
+{
+  "refresh_token": "your_refresh_token_here"
+}
+
+
+sample data for creating ponds
+
+{
+    "name": "pond5",
+    "length": 10,
+    "width": 10,
+    "heigth": 3.5,
+    "location": "agona site a",
+    "status": "available"
+}
+
+
 
 sample data for renting pond
 {
     "pond":"",
     "start_date":"2025-04-02",
     "end_date":"2025-10-02",
-}
-
-sample data for logout
-
-{
-  "refresh_token": "your_refresh_token_here"
 }

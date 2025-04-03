@@ -26,17 +26,10 @@ class AddOrViewPond(viewsets.ModelViewSet):
     queryset = Pond.objects.all()
     permission_classes = [permissions.IsAdminUser]
 
-    def get_queryset(self):
-        if self.request.user.is_staff:
-            return Pond.objects.all()
-        return Pond.objects.filter(status='available')
-    
     def get_serializer_class(self):
         if self.action in ['create', 'update']:
             return PondCreateSerializer
         return PondSerializer
-
-
 
     def perform_create(self, serializer):
         if not self.request.user.is_staff:
