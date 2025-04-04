@@ -1,39 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome to FishFarmMS</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #e6f2ff;
-            text-align: center;
-            padding-top: 100px;
-        }
-        h1 {
-            font-size: 3em;
-            color: #004080;
-        }
-        p {
-            font-size: 1.2em;
-            margin: 20px auto;
-            width: 60%;
-        }
-        .btn {
-            padding: 10px 20px;
-            background: #0073e6;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-        }
-        .btn:hover {
-            background: #0059b3;
-        }
-    </style>
-</head>
-<body>
-    <h1>🐟 Welcome to FishFarmMS</h1>
-    <p>Your all-in-one aquaculture management platform.</p>
-    <a class="btn" href="/admin/">Go to Admin Dashboard</a>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero">
+    <h2>Empowering Fish Farmers with Innovation</h2>
+    <p>Welcome to FishFarmMS – a smart fish farm management system designed for efficiency and collaboration between farmers, wholesalers, and retailers.</p>
+    <a href="/api/auth/login/" class="btn-primary">Get Started</a>
+</section>
+
+<section class="features">
+    <div class="feature">
+        <h3>Farm Management</h3>
+        <p>Track ponds, growth, and fish health with ease.</p>
+    </div>
+    <div class="feature">
+        <h3>Contracts & Rentals</h3>
+        <p>Manage pond rentals and farmer agreements seamlessly.</p>
+    </div>
+    <div class="feature">
+        <h3>Insurance Integration</h3>
+        <p>Secure your operations with flexible insurance packages.</p>
+    </div>
+</section>
+{% endblock %} 

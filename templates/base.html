@@ -1,0 +1,36 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GrzDay Fish Farming | FishFarmMS</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">  
+</head>
+<body>
+    <h1>🐟 Welcome to GrzDay FishFarmMS</h1>
+    <nav> 
+        <a href="/">Home</a> |
+        <a href="/admin/">Admin</a> | 
+        <a href="/api/auth/login/">Login</a> | 
+        <a href="/farmer-dashboard/">Dashboard</a>
+    </nav>
+    <p>Your all-in-one aquaculture management platform.</p>
+    
+   
+    <header class="main-header">
+        <div class="container">
+            <h2>GrzDay FishFarmMS</h2>
+            
+        </div>
+    </header>
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 GraceDay Fish Farming. Empowering fish farmers across Ghana.</p>
+    </footer>
+</body>
+</html>

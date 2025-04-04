@@ -55,6 +55,12 @@ Setup Instructions
     python manage.py runserver
 
 
+================================
+-- ADMIN LOGIN CREDENTIALS--
+    email: amind@example.com
+    password: adminadmin
+================================
+
 
 Next Steps
 
@@ -86,28 +92,26 @@ Deploy to a server.
 Enhance APIs for user roles and stock management.
 
 
-
-
 -- API ENDPOINTS For Core APP--
 
-http://localhost:8000/api/auth/register/
-http://localhost:8000/api/auth/login/
-http://localhost:8000/api/auth/token/refresh/
-http://localhost:8000/api/auth/logout/
+https://ephrims5.pythonanywhere.com/api/auth/register/
+https://ephrims5.pythonanywhere.com/api/auth/login/
+https://ephrims5.pythonanywhere.com/api/auth/token/refresh/
+https://ephrims5.pythonanywhere.com/api/auth/logout/
 
 -- API ENDPOINTS For Farmer-DashBoard APP--
-http://localhost:8000/farmer-dashboard/ponds/
-http://localhost:8000/farmer-dashboard/add-pond/
-http://localhost:8000/farmer-dashboard/pond-rentals/
-http://localhost:8000/farmer-dashboard/fish-growth/
-http://localhost:8000/farmer-dashboard/fish-growth/<int:pk>/
+https://ephrims5.pythonanywhere.com/farmer-dashboard/ponds/
+https://ephrims5.pythonanywhere.com/farmer-dashboard/add-pond/
+https://ephrims5.pythonanywhere.com/farmer-dashboard/pond-rentals/
+https://ephrims5.pythonanywhere.com/farmer-dashboard/fish-growth/
+https://ephrims5.pythonanywhere.com/farmer-dashboard/fish-growth/<int:pk>/
 
 
 --admin dashboard--
-http://localhost:8000/api/auth/admin-dashboard/
+https://ephrims5.pythonanywhere.com/api/auth/admin-dashboard/
 
 --farmer dashboard--
-http://localhost:8000/farmer-dahsboard/dashboard/
+https://ephrims5.pythonanywhere.com/farmer-dahsboard/dashboard/
 
 
 
