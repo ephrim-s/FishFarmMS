@@ -9,6 +9,7 @@ farm workers, and consumers, ensuring smooth management of fish stock, inventory
 deliveries, and financial records.
 
 Inspiration
+
 Developed by Samuel Ephrim a Student at Alx, and a fish farmer passionate about leveraging 
 IT technology to enhance collaboration between fish farmers, fishmongers, wholesalers, 
 retailers, and consumers. Recognizing the challenges in fish farming operations, 
@@ -56,6 +57,12 @@ Setup Instructions
 
 
 ================================
+Deloployed on pythyanywhere.com
+
+landing page:   https://ephrims5.pythonanywhere.com/
+admin login:    https://ephrims5.pythonanywhere.com/admin/
+
+
 -- ADMIN LOGIN CREDENTIALS--
     email: amind@example.com
     password: adminadmin
@@ -204,8 +211,6 @@ sample data for creating ponds
     "location": "agona site a",
     "status": "available"
 }
-
-
 
 sample data for renting pond
 {
