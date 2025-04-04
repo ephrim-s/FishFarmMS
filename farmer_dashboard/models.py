@@ -103,6 +103,30 @@ class CommissionRate(models.Model):
         return obj
     
     
+class Commission(models.Model):
+   COMMISSION_TYPES = [
+       ('rental', 'Pond Rental'),
+       ('sales', 'Fish Sales'),
+   ]
+   type = models.CharField(max_length=20, choices=COMMISSION_TYPES)
+   amount = models.DecimalField(max_digits=10, decimal_places=2)
+   transaction = models.CharField(max_length=100, help_text="Related transactoin ID or reference")
+   created_at = models.DateTimeField(auto_now_add=True)
+
+
+   def __str__(self):
+       return f"{self.type} commission of GHs{self.amount} on {self.transaction}"
+  
+   @staticmethod
+   def calculate_pond_rental_commission(rental):
+       rates = CommissionRate.get_current_rates()
+       commission_rate = Decimal(rates.rental_rate) / 100
+       commission_amount = rental.pond.rental_price * commission_rate
+       return Commission.objects.create(
+           type='rental',
+           amount=commission_amount,
+           transaction=f"Rental-{rental.id}"
+       )
 
 class InsurancePackage(models.Model):
     name = models.CharField(max_length=100, unique=True)
