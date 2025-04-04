@@ -10,6 +10,7 @@ from . permissions import *
 
 User = get_user_model()
 
+
 # This is an API for User Registration
 class RegisterUserView(generics.CreateAPIView):
     queryset = User.objects.all()

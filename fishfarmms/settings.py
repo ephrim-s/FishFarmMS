@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-b=ary6ttc)yqyucc(s@3hl#amr-zm!6n#!@3+caj91o_ke66@e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://fishfarmms-b1fa044de875.herokuapp.com']
+ALLOWED_HOSTS = ['https://ephrims5.pythonanywhere.com/']
 
 
 # Application definition
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'core',
     'farmer_dashboard',
+    'landing_page',
 ]
 
 MIDDLEWARE = [
