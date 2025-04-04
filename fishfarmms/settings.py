@@ -159,3 +159,29 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Security Settings
+
+# Enable XSS protection in the browser
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevent the site from being embedded in an iframe (Clickjacking Protection)
+X_FRAME_OPTIONS = 'DENY'
+
+# Force all HTTP traffic to be redirected to HTTPS
+SECURE_SSL_REDIRECT = True
+
+# Enable secure cookies
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# Content Security Policy (Optional - Adjust based on your needs)
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "cdnjs.cloudflare.com")
+CSP_SCRIPT_SRC = ("'self'", "cdnjs.cloudflare.com")
+
+# HTTP Strict Transport Security (HSTS)
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
